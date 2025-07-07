@@ -1,11 +1,11 @@
-package Entity;
+package entity.impl;
 
-import Types.AnimalGroup;
+import entity.Herbivore;
 
 public class Rabbit extends Herbivore {
 
     public Rabbit(double weight, int maxCount, int speed, double foodNeeded) {
-        super(weight, maxCount, speed, foodNeeded);
+        super(weight, maxCount, speed, foodNeeded, "\uD83D\uDC30");
     }
 
     @Override
