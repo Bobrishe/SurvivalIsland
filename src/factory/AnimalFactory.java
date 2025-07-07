@@ -29,7 +29,7 @@ public class AnimalFactory {
             case BEAR -> new Bear(500, 5, 2, 80);
             case HORSE -> new Horse(400, 20, 4, 60);
             case CATERPILLAR -> new Caterpillar(0.01, 1000, 0, 0);
-            case DUCK -> new Caterpillar(1, 200, 4, 0.15);
+            case DUCK -> new Duck(1, 200, 4, 0.15);
         };
 
         return animal;
