@@ -46,21 +46,21 @@ public abstract class Animal {
     public abstract void eat();
 
     public void reproduce() {
-        Map<Class, List<Animal>> animalsMap = location.getAnimalsMap();
+        Map<Class<? extends Animal>, List<Animal>> animalsMap = location.getAnimalsMap();
 
-        for (Class className : animalsMap.keySet()) {
+        animalsMap.keySet().forEach(className -> {
             int probablyReproduce = ThreadLocalRandom.current().nextInt(10);// Added prob to reproduce
             List<Animal> animals = animalsMap.get(className);
             if (animals.size() > 1 && probablyReproduce > 5 && animals.size() < maxCount) {
                 try {
-                    Animal justBorn = (Animal) className.newInstance();
+                    Animal justBorn = className.getDeclaredConstructor().newInstance();
                     justBorn.setLocation(location);
                     location.addAnimal(justBorn);
                 } catch (Exception e) {
                     //animal wasn't born;
                 }
             }
-        }
+        });
     }
 
     public double getWeight() {

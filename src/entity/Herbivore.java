@@ -15,15 +15,14 @@ public abstract class Herbivore extends Animal {
     }
 
     @Override
-    public void eat() {
+    public synchronized void eat() {
         Location current = getLocation();
-        List<Plant> plants = current.getPlants();
         double eaten = 0;
 
         if (isCanEatMeat()) {
             List<Animal> caterpillars = current.getAnimals(Caterpillar.class);
 
-            if (caterpillars.size() > 0) {
+            if (!caterpillars.isEmpty()) {
                 for (Animal food : caterpillars) {
                     if (eaten <= getFoodNeeded() - food.getWeight()) {
                         eaten += food.getWeight();
@@ -33,10 +32,10 @@ public abstract class Herbivore extends Animal {
             }
         }
 
-        while (current.getPlants().size() > 0) {
+        while (!current.getPlants().isEmpty()) {
             Plant plant = current.getPlants().get(0);
             if (eaten <= getFoodNeeded() - Plant.WEIGHT) {
-                eaten += plant.WEIGHT;
+                eaten += Plant.WEIGHT;
                 current.removePlant(plant);
             } else break;
         }

@@ -16,7 +16,7 @@ public class AnimalUtil {
             throw new IllegalArgumentException();
         }
 
-        Animal animal = switch (type) {
+        return switch (type) {
             case WOLF -> new Wolf();
             case RABBIT -> new Rabbit();
             case FOX -> new Fox();
@@ -26,8 +26,6 @@ public class AnimalUtil {
             case CATERPILLAR -> new Caterpillar();
             case DUCK -> new Duck();
         };
-
-        return animal;
     }
 
     public static Animal getRandomAnimal() {

@@ -22,7 +22,7 @@ public abstract class Predator extends Animal {
 
         double eaten = 0;
 
-        if (animals.size() > 0) {
+        if (!animals.isEmpty()) {
             for (Animal food : animals) {
                 int probabilityToEat = ThreadLocalRandom.current().nextInt(10); // without variables, using 30%
                 if (eaten <= getFoodNeeded() - food.getWeight() && probabilityToEat <= 3) {
