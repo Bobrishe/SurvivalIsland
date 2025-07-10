@@ -4,22 +4,8 @@ import entity.Predator;
 
 public class Bear extends Predator {
 
-    public Bear(double weight, int maxCount, int speed, double foodNeeded) {
-        super(weight, maxCount, speed, foodNeeded,"\uD83D\uDC3B");
+    public Bear() {
+        super(500, 5, 2, 80,"\uD83D\uDC3B");
     }
 
-    @Override
-    public void move() {
-
-    }
-
-    @Override
-    public void eat() {
-
-    }
-
-    @Override
-    public void reproduce() {
-
-    }
 }

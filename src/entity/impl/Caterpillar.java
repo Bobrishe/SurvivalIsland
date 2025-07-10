@@ -4,22 +4,8 @@ import entity.Herbivore;
 
 public class Caterpillar extends Herbivore {
 
-    public Caterpillar(double weight, int maxCount, int speed, double foodNeeded) {
-        super(weight, maxCount, speed, foodNeeded, "\uD83D\uDC1B");
+    public Caterpillar() {
+        super(0.01, 1000, 0, 0, "\uD83D\uDC1B");
     }
 
-    @Override
-    public void move() {
-
-    }
-
-    @Override
-    public void eat() {
-
-    }
-
-    @Override
-    public void reproduce() {
-
-    }
 }
