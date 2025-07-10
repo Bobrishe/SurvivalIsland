@@ -27,7 +27,7 @@ public class IslandEngine {
 
     //Optional. If we don't need to generate random map, this method and some other methods/class could be removed
     private void initIsland() {
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 1000; i++) {
             island.getRandomEmptyLocation().addAnimal(AnimalUtil.getRandomAnimal());
             island.getRandomEmptyLocation().growPlant();
         }

@@ -13,8 +13,8 @@ public class Location {
 
     private final List<Animal> animals = new ArrayList<>();
     private final List<Plant> plants = new ArrayList<>();
-    private int x;
-    private int y;
+    private final int x;
+    private final int y;
 
     public Location(int x, int y) {
         this.x = x;
@@ -43,10 +43,8 @@ public class Location {
     }
 
     public synchronized Map<Class<? extends Animal>, List<Animal>> getAnimalsMap() {
-        Map<Class<? extends Animal>, List<Animal>> animalsMap = getAnimals().stream()
-                .collect(Collectors.groupingBy(animal -> animal.getClass()));
-
-        return animalsMap;
+        return getAnimals().stream()
+                .collect(Collectors.groupingBy(Animal::getClass));
     }
 
     public synchronized List<Animal> getAnimals(Class clazz) {
