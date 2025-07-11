@@ -15,7 +15,7 @@ public abstract class Herbivore extends Animal {
     }
 
     @Override
-    public synchronized void eat() {
+    public void eat() {
         Location current = getLocation();
         double eaten = 0;
 
