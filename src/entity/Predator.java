@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public abstract class Predator extends Animal {
-    public Predator(double weight, int maxCount, int speed, double foodNeeded, String symbol) {
-        super(weight, maxCount, speed, foodNeeded, symbol);
+    public Predator(double weight, int maxCount, int speed, double foodNeeded, String icon) {
+        super(weight, maxCount, speed, foodNeeded, icon);
         setCanEatMeat(true);
         setAnimalClass(AnimalClass.PREDATOR);
     }

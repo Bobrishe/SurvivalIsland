@@ -14,18 +14,18 @@ public abstract class Animal {
     protected final int maxCount;
     protected final int speed;
     protected final double foodNeeded;
-    protected final String symbol;
+    protected final String icon;
     protected boolean canEatMeat = false;
     protected boolean canEatPlant = false;
     protected AnimalClass animalClass;
     protected Location location;
 
-    public Animal(double weight, int maxCount, int speed, double foodNeeded, String symbol) {
+    public Animal(double weight, int maxCount, int speed, double foodNeeded, String icon) {
         this.weight = weight;
         this.maxCount = maxCount;
         this.speed = speed;
         this.foodNeeded = foodNeeded;
-        this.symbol = symbol;
+        this.icon = icon;
     }
 
     public void move(Island island) {
@@ -79,8 +79,8 @@ public abstract class Animal {
         return foodNeeded;
     }
 
-    public String getSymbol() {
-        return symbol;
+    public String getIcon() {
+        return icon;
     }
 
     public void setCanEatMeat(boolean eatMeat) {
