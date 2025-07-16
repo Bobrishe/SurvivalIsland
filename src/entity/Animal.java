@@ -67,14 +67,6 @@ public abstract class Animal {
         return weight;
     }
 
-    public int getMaxCount() {
-        return maxCount;
-    }
-
-    public int getSpeed() {
-        return speed;
-    }
-
     public double getFoodNeeded() {
         return foodNeeded;
     }
@@ -93,10 +85,6 @@ public abstract class Animal {
 
     public boolean isCanEatMeat() {
         return canEatMeat;
-    }
-
-    public boolean isCanEatPlant() {
-        return canEatPlant;
     }
 
     public Location getLocation() {
