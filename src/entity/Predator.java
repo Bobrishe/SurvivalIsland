@@ -9,8 +9,16 @@ import java.util.concurrent.ThreadLocalRandom;
 public abstract class Predator extends Animal {
     public Predator(double weight, int maxCount, int speed, double foodNeeded, String icon) {
         super(weight, maxCount, speed, foodNeeded, icon);
-        setCanEatMeat(true);
-        setAnimalClass(AnimalClass.PREDATOR);
+    }
+
+    @Override
+    public boolean isCanEatMeat() {
+        return true;
+    }
+
+    @Override
+    public AnimalClass getAnimalClass() {
+        return AnimalClass.PREDATOR;
     }
 
     // Basic implementation. Next step, add variables with probabilities of eating each other.
@@ -24,12 +32,21 @@ public abstract class Predator extends Animal {
 
         if (!animals.isEmpty()) {
             for (Animal food : animals) {
-                int probabilityToEat = ThreadLocalRandom.current().nextInt(10); // without variables, using 30%
-                if (eaten <= getFoodNeeded() - food.getWeight() && probabilityToEat <= 3) {
-                    eaten += food.getWeight();
-                    current.removeAnimal(food);
+                int randomProbability = ThreadLocalRandom.current().nextInt(100);
+                int probabilityToEat = getEatProbability(food);
+
+                if (probabilityToEat > 0) {
+                    if (eaten <= getFoodNeeded() - food.getWeight() && randomProbability <= probabilityToEat) {
+                        eaten += food.getWeight();
+                        current.removeAnimal(food);
+                    }
                 }
             }
         }
     }
+
+    public int getEatProbability(Animal food) {
+        return getAnimalProperties().getProbability(this, food);
+    }
+
 }

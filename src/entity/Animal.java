@@ -3,22 +3,22 @@ package entity;
 import map.Island;
 import map.Location;
 import types.AnimalClass;
+import util.AnimalProperties;
 
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.IntStream;
 
 public abstract class Animal {
-    //initialise table parameters as final, because they are constant during the live cycle
     protected final double weight;
     protected final int maxCount;
     protected final int speed;
     protected final double foodNeeded;
     protected final String icon;
-    protected boolean canEatMeat = false;
-    protected boolean canEatPlant = false;
-    protected AnimalClass animalClass;
     protected Location location;
+    protected final int REPRODUCE_PROBABILITY = 5;
+    protected static AnimalProperties animalProperties = AnimalProperties.getInstance();
 
     public Animal(double weight, int maxCount, int speed, double foodNeeded, String icon) {
         this.weight = weight;
@@ -28,22 +28,27 @@ public abstract class Animal {
         this.icon = icon;
     }
 
+    public static AnimalProperties getAnimalProperties() {
+        return animalProperties;
+    }
+
     public void move(Island island) {
-        //We can use `while` , but if animal can't find the way in 10 attempt, we should continue
-        for (int i = 0; i < 10; i++) {
-            Location current = location;
+        Location current = location;
+
+        IntStream.range(0, 10).anyMatch(i -> {
+
             Location newLocation = island.getRandomLocation(current, speed);
 
             if (newLocation != null && newLocation.getAnimals(getClass()).size() < maxCount) {
                 this.setLocation(newLocation);
                 newLocation.addAnimal(this);
                 current.removeAnimal(this);
-                break;
+                return true;
             }
-        }
-    }
 
-    public abstract void eat();
+            return false;
+        });
+    }
 
     public void reproduce() {
         Map<Class<? extends Animal>, List<Animal>> animalsMap = location.getAnimalsMap();
@@ -51,7 +56,7 @@ public abstract class Animal {
         animalsMap.keySet().forEach(className -> {
             int probablyReproduce = ThreadLocalRandom.current().nextInt(10);// Added prob to reproduce
             List<Animal> animals = animalsMap.get(className);
-            if (animals.size() > 1 && probablyReproduce > 5 && animals.size() < maxCount) {
+            if (animals.size() > 1 && probablyReproduce > REPRODUCE_PROBABILITY && animals.size() < maxCount) {
                 try {
                     Animal justBorn = className.getDeclaredConstructor().newInstance();
                     justBorn.setLocation(location);
@@ -75,18 +80,6 @@ public abstract class Animal {
         return icon;
     }
 
-    public void setCanEatMeat(boolean eatMeat) {
-        canEatMeat = eatMeat;
-    }
-
-    public void setCanEatPlant(boolean eatPlant) {
-        canEatPlant = eatPlant;
-    }
-
-    public boolean isCanEatMeat() {
-        return canEatMeat;
-    }
-
     public Location getLocation() {
         return location;
     }
@@ -95,11 +88,10 @@ public abstract class Animal {
         this.location = location;
     }
 
-    public void setAnimalClass(AnimalClass animalClass) {
-        this.animalClass = animalClass;
-    }
+    public abstract void eat();
 
-    public AnimalClass getAnimalClass() {
-        return animalClass;
-    }
+    public abstract AnimalClass getAnimalClass();
+
+    public abstract boolean isCanEatMeat();
+
 }
