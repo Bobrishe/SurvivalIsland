@@ -16,7 +16,7 @@ public class AnimalProperties {
         try (FileInputStream fileInputStream = new FileInputStream("src/resources/animal.properties")) {
             properties.load(fileInputStream);
         } catch (IOException e) {
-            e.printStackTrace();
+            // No property file
         }
     }
 

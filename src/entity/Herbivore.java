@@ -35,6 +35,7 @@ public abstract class Herbivore extends Animal {
             });
         }
 
+        // use anyMath to break, when animal will be not hungry
         current.getPlants().stream().anyMatch(plant -> {
             if (eaten[0] <= getFoodNeeded() - Plant.WEIGHT) {
                 eaten[0] += Plant.WEIGHT;
