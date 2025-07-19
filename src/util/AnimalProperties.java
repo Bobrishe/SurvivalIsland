@@ -8,7 +8,7 @@ import java.util.Properties;
 
 public class AnimalProperties {
 
-    private static AnimalProperties instance;
+    private static volatile AnimalProperties instance;
 
     private Properties properties = new Properties();
 
@@ -22,23 +22,28 @@ public class AnimalProperties {
 
     public static AnimalProperties getInstance() {
         if (instance == null) {
-            instance = new AnimalProperties();
+            synchronized (AnimalProperties.class) {
+                if (instance == null) {
+                    instance = new AnimalProperties();
+                }
+            }
         }
         return instance;
     }
 
-    public int getProbability(Animal predator, Animal food) {
-        if (properties.isEmpty()) {
+    public int getIntProperty(String property) {
+        if (properties.isEmpty() || property == null) {
             return 0;
         }
+        int value;
 
-        String predatorName = predator.getClass().getSimpleName().toLowerCase();
-        String foodName = food.getClass().getSimpleName().toLowerCase();
-        String property = properties.getProperty(predatorName + '.' + foodName);
+        try {
+            value = Integer.parseInt(property);
+        } catch (NumberFormatException e) {
+            value = 0;
+        }
 
-        if (property == null) return 0;
-
-        return Integer.parseInt(property);
+        return value;
     }
 
 }

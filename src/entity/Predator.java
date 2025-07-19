@@ -2,11 +2,15 @@ package entity;
 
 import map.Location;
 import types.AnimalClass;
+import util.AnimalProperties;
 
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public abstract class Predator extends Animal {
+
+    protected static AnimalProperties animalProperties = AnimalProperties.getInstance();
+
     public Predator(double weight, int maxCount, int speed, double foodNeeded, String icon) {
         super(weight, maxCount, speed, foodNeeded, icon);
     }
@@ -46,7 +50,12 @@ public abstract class Predator extends Animal {
     }
 
     public int getEatProbability(Animal food) {
-        return getAnimalProperties().getProbability(this, food);
+
+        String predatorName = this.getClass().getSimpleName().toLowerCase();
+        String foodName = food.getClass().getSimpleName().toLowerCase();
+        String property = predatorName + '.' + foodName;
+
+        return animalProperties.getIntProperty(property);
     }
 
 }

@@ -3,7 +3,6 @@ package entity;
 import map.Island;
 import map.Location;
 import types.AnimalClass;
-import util.AnimalProperties;
 
 import java.util.List;
 import java.util.Map;
@@ -18,7 +17,6 @@ public abstract class Animal {
     protected final String icon;
     protected Location location;
     protected final int REPRODUCE_PROBABILITY = 5;
-    protected static AnimalProperties animalProperties = AnimalProperties.getInstance();
 
     public Animal(double weight, int maxCount, int speed, double foodNeeded, String icon) {
         this.weight = weight;
@@ -26,10 +24,6 @@ public abstract class Animal {
         this.speed = speed;
         this.foodNeeded = foodNeeded;
         this.icon = icon;
-    }
-
-    public static AnimalProperties getAnimalProperties() {
-        return animalProperties;
     }
 
     public void move(Island island) {
