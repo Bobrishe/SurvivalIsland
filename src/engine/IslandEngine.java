@@ -57,7 +57,7 @@ public class IslandEngine {
                 try {
                     Thread.sleep(100);
                 } catch (InterruptedException e) {
-                    throw new EngineThreadException(e.getMessage());
+                    e.printStackTrace();
                 }
             }
 

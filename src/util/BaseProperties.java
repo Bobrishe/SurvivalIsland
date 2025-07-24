@@ -12,7 +12,7 @@ public class BaseProperties {
     private static volatile BaseProperties instance;
     private final String BASE_PROPERTY = "src/resources/animal.properties";
 
-    private Properties properties = new Properties();
+    private final Properties properties = new Properties();
 
     private BaseProperties() {
         try (FileInputStream fileInputStream = new FileInputStream(BASE_PROPERTY)) {
@@ -50,7 +50,7 @@ public class BaseProperties {
 
         try {
             value = Integer.parseInt(getProperty(property));
-        } catch (PropertyException e) {
+        } catch (NumberFormatException e) {
             throw new PropertyException();
         }
 

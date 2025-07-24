@@ -19,10 +19,14 @@ public class AnimalProperties {
         }
 
         String animalName = animal.getAnimalName();
-        String[] props = baseProperties.getProperties().getProperty(animalName).split(",");
+        String property = baseProperties.getProperties().getProperty(animalName);
+        if (property == null) {
+            throw new PropertyException();
+        }
+        String[] props = property.split(",");
 
         propertyList = Arrays.stream(props)
-                .map(s -> s.trim())
+                .map(String::trim)
                 .filter(s -> !s.isEmpty())
                 .toList();
 
