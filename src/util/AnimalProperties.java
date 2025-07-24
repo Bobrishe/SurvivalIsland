@@ -18,7 +18,7 @@ public class AnimalProperties {
             throw new PropertyFileException();
         }
 
-        String animalName = animal.getAnimalName();
+        String animalName = animal.getName();
         String property = baseProperties.getProperties().getProperty(animalName);
         if (property == null) {
             throw new PropertyException();
@@ -36,19 +36,19 @@ public class AnimalProperties {
     }
 
     public static AnimalProperties getInstance(Animal animal) {
-        if (instance.get(animal.getAnimalName()) == null) {
+        if (instance.get(animal.getName()) == null) {
             synchronized (AnimalProperties.class) {
-                if (instance.get(animal.getAnimalName()) == null) {
-                    instance.put(animal.getAnimalName(), new AnimalProperties(animal));
+                if (instance.get(animal.getName()) == null) {
+                    instance.put(animal.getName(), new AnimalProperties(animal));
                 }
             }
         }
-        return instance.get(animal.getAnimalName());
+        return instance.get(animal.getName());
     }
 
     public int getEatProbability(Animal predator, Animal food) {
-        String predatorName = predator.getAnimalName();
-        String foodName = food.getAnimalName();
+        String predatorName = predator.getName();
+        String foodName = food.getName();
         String property = predatorName + '.' + foodName;
 
         return baseProperties.getIntProperty(property);

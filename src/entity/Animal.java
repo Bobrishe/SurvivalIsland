@@ -19,13 +19,13 @@ public abstract class Animal {
     protected final double foodNeeded;
     protected final String icon;
     protected Location location;
-    protected String animalName;
+    protected String name;
     protected final int REPRODUCE_PROBABILITY = 5;
     protected final int MOVE_TRIES = 5;
     protected final AnimalProperties animalProperties;
 
     public Animal() {
-        this.animalName = this.getClass().getSimpleName().toLowerCase();
+        this.name = this.getClass().getSimpleName().toLowerCase();
         animalProperties = AnimalProperties.getInstance(this);
         if (animalProperties.hasProperties()) {
             this.weight = animalProperties.getWeight();
@@ -74,8 +74,8 @@ public abstract class Animal {
         });
     }
 
-    public String getAnimalName() {
-        return animalName;
+    public String getName() {
+        return name;
     }
 
     public double getWeight() {
