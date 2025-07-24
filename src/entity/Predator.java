@@ -25,7 +25,6 @@ public abstract class Predator extends Animal {
         return AnimalClass.PREDATOR;
     }
 
-    // Basic implementation. Next step, add variables with probabilities of eating each other.
     @Override
     public void eat() {
         Location current = getLocation();

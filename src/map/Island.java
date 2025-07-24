@@ -10,7 +10,6 @@ public class Island {
 
     public Island(int width, int height) {
         map = new Location[width][height];
-        //Initialize, all elements are null
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map[0].length; j++) {
                 map[j][i] = new Location(i, j);

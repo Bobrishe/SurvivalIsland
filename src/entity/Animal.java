@@ -29,7 +29,6 @@ public abstract class Animal {
     public void move(Island island) {
         Location current = location;
 
-        // use anyMath to break, after successful result
         IntStream.range(0, 10).anyMatch(i -> {
 
             Location newLocation = island.getRandomLocation(current, speed);

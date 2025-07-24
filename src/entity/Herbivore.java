@@ -23,7 +23,6 @@ public abstract class Herbivore extends Animal {
     @Override
     public void eat() {
         Location current = getLocation();
-        //changed to array, because we need final to use lambda
         final double[] eaten = {0};
 
         if (isCanEatMeat()) {
@@ -35,7 +34,6 @@ public abstract class Herbivore extends Animal {
             });
         }
 
-        // use anyMath to break, when animal will be not hungry
         current.getPlants().stream().anyMatch(plant -> {
             if (eaten[0] <= getFoodNeeded() - Plant.WEIGHT) {
                 eaten[0] += Plant.WEIGHT;

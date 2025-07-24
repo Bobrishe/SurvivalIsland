@@ -6,7 +6,6 @@ import types.AnimalType;
 
 import java.util.Random;
 
-//Basically, this is helper to generate random animals for filling the startup map
 public class AnimalUtil {
 
     private static final Random random = new Random();

@@ -13,6 +13,7 @@ public class IslandEngine {
     private final Island island;
     private final int ANIMAL_IN_START = 20;
     private final int PLANTS_IN_START = 10;
+    private final int DELAY = 1;
     ScheduledExecutorService executorService = Executors.newScheduledThreadPool(1);
 
     public IslandEngine(Island island) {
@@ -21,10 +22,9 @@ public class IslandEngine {
 
     public void startSimulation() {
         initIsland();
-        executorService.scheduleWithFixedDelay(new IslandRunner(), 0, 1, TimeUnit.SECONDS);
+        executorService.scheduleWithFixedDelay(new IslandRunner(), 0, DELAY, TimeUnit.SECONDS);
     }
 
-    //Optional. If we don't need to generate random map, this method and some other methods/class could be removed
     private void initIsland() {
         for (int i = 0; i < ANIMAL_IN_START; i++) {
             island.getRandomEmptyLocation().addAnimal(AnimalUtil.getRandomAnimal());
@@ -43,7 +43,6 @@ public class IslandEngine {
             for (Location location : island.getLocationsWithAnimals()) {
                 executor.submit(() -> {
                     List<Animal> animals = location.getAnimals();
-                    // use FOR , because location is changing during animal activities, and foreach loop could be broken (I've checked)
                     for (int i = 0; i < animals.size(); i++) {
                         Animal animal = animals.get(i);
                         animal.move(island);
@@ -53,9 +52,13 @@ public class IslandEngine {
                 });
             }
 
-            // Need this to be sure that all threads are finished, or it can lead to a loop
             ThreadPoolExecutor threadPoolExecutor = (ThreadPoolExecutor) executor;
+
             while (threadPoolExecutor.getActiveCount() > 0) {
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                }
             }
 
             Statistics.print(island);

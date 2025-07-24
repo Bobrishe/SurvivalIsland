@@ -1,7 +1,5 @@
 package util;
 
-import entity.Animal;
-
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
@@ -16,7 +14,6 @@ public class AnimalProperties {
         try (FileInputStream fileInputStream = new FileInputStream("src/resources/animal.properties")) {
             properties.load(fileInputStream);
         } catch (IOException e) {
-            // No property file
         }
     }
 
