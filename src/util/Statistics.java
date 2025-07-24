@@ -18,7 +18,7 @@ public class Statistics {
 
         for (Location location : island.getAllLocations()) {
             for (Animal animal : location.getAnimals()) {
-                String name = animal.getClass().getSimpleName();
+                String name = animal.getAnimalName();
                 icons.put(name, animal.getIcon());
                 animalCounts.put(name, animalCounts.getOrDefault(name, 0) + 1);
                 totalAnimalSize++;

@@ -13,7 +13,6 @@ import java.util.concurrent.*;
 public class IslandEngine {
     private final Island island;
     private final int ANIMAL_IN_START = 20;
-    private final int PLANTS_IN_START = 10;
     private final int DELAY = 1;
     ScheduledExecutorService executorService = Executors.newScheduledThreadPool(1);
 
@@ -30,15 +29,14 @@ public class IslandEngine {
         for (int i = 0; i < ANIMAL_IN_START; i++) {
             island.getRandomEmptyLocation().addAnimal(AnimalUtil.getRandomAnimal());
         }
-        for (int i = 0; i < PLANTS_IN_START; i++) {
-            island.getRandomEmptyLocation().growPlant();
-        }
     }
 
     private class IslandRunner implements Runnable {
         @Override
         public void run() {
             int nThreads = Runtime.getRuntime().availableProcessors();
+            island.getRandomEmptyLocation().growPlant();
+
             ExecutorService executor = Executors.newFixedThreadPool(nThreads);
 
             for (Location location : island.getLocationsWithAnimals()) {

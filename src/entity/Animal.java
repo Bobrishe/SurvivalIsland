@@ -1,9 +1,11 @@
 package entity;
 
 import exception.AnimalWasntBornException;
+import exception.PropertyException;
 import map.Island;
 import map.Location;
 import types.AnimalClass;
+import util.AnimalProperties;
 
 import java.util.List;
 import java.util.Map;
@@ -17,21 +19,30 @@ public abstract class Animal {
     protected final double foodNeeded;
     protected final String icon;
     protected Location location;
+    protected String animalName;
     protected final int REPRODUCE_PROBABILITY = 5;
+    protected final int MOVE_TRIES = 5;
+    protected final AnimalProperties animalProperties;
 
-    public Animal(double weight, int maxCount, int speed, double foodNeeded, String icon) {
-        this.weight = weight;
-        this.maxCount = maxCount;
-        this.speed = speed;
-        this.foodNeeded = foodNeeded;
-        this.icon = icon;
+    public Animal() {
+        this.animalName = this.getClass().getSimpleName().toLowerCase();
+        animalProperties = AnimalProperties.getInstance(this);
+        if (animalProperties.hasProperties()) {
+            this.weight = animalProperties.getWeight();
+            this.maxCount = animalProperties.getMaxCount();
+            this.speed = animalProperties.getSpeed();
+            this.foodNeeded = animalProperties.getFoodNeeded();
+            this.icon = animalProperties.getIcon();
+        } else {
+            throw new PropertyException();
+        }
+
     }
 
     public void move(Island island) {
         Location current = location;
 
-        IntStream.range(0, 10).anyMatch(i -> {
-
+        IntStream.range(0, MOVE_TRIES).anyMatch(i -> {
             Location newLocation = island.getRandomLocation(current, speed);
 
             if (newLocation != null && newLocation.getAnimals(getClass()).size() < maxCount) {
@@ -61,6 +72,10 @@ public abstract class Animal {
                 }
             }
         });
+    }
+
+    public String getAnimalName() {
+        return animalName;
     }
 
     public double getWeight() {

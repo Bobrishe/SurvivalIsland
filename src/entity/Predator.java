@@ -2,17 +2,13 @@ package entity;
 
 import map.Location;
 import types.AnimalClass;
-import util.AnimalProperties;
-
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public abstract class Predator extends Animal {
 
-    protected static AnimalProperties animalProperties = AnimalProperties.getInstance();
-
-    public Predator(double weight, int maxCount, int speed, double foodNeeded, String icon) {
-        super(weight, maxCount, speed, foodNeeded, icon);
+    public Predator() {
+        super();
     }
 
     @Override
@@ -36,7 +32,7 @@ public abstract class Predator extends Animal {
         if (!animals.isEmpty()) {
             for (Animal food : animals) {
                 int randomProbability = ThreadLocalRandom.current().nextInt(100);
-                int probabilityToEat = getEatProbability(food);
+                int probabilityToEat = animalProperties.getEatProbability(this, food);
 
                 if (probabilityToEat > 0) {
                     if (eaten <= getFoodNeeded() - food.getWeight() && randomProbability <= probabilityToEat) {
@@ -46,15 +42,6 @@ public abstract class Predator extends Animal {
                 }
             }
         }
-    }
-
-    public int getEatProbability(Animal food) {
-
-        String predatorName = this.getClass().getSimpleName().toLowerCase();
-        String foodName = food.getClass().getSimpleName().toLowerCase();
-        String property = predatorName + '.' + foodName;
-
-        return animalProperties.getIntProperty(property);
     }
 
 }

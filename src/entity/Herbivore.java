@@ -6,8 +6,8 @@ import types.AnimalClass;
 
 public abstract class Herbivore extends Animal {
 
-    public Herbivore(double weight, int maxCount, int speed, double foodNeeded, String icon) {
-        super(weight, maxCount, speed, foodNeeded, icon);
+    public Herbivore() {
+        super();
     }
 
     @Override
