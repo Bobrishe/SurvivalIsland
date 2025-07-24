@@ -1,6 +1,7 @@
 package engine;
 
 import entity.Animal;
+import exception.EngineThreadException;
 import map.Island;
 import map.Location;
 import util.AnimalUtil;
@@ -58,6 +59,7 @@ public class IslandEngine {
                 try {
                     Thread.sleep(100);
                 } catch (InterruptedException e) {
+                    throw new EngineThreadException(e.getMessage());
                 }
             }
 

@@ -1,5 +1,6 @@
 package util;
 
+import exception.PropertyFileException;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
@@ -14,6 +15,7 @@ public class AnimalProperties {
         try (FileInputStream fileInputStream = new FileInputStream("src/resources/animal.properties")) {
             properties.load(fileInputStream);
         } catch (IOException e) {
+            throw new PropertyFileException();
         }
     }
 
@@ -35,7 +37,7 @@ public class AnimalProperties {
         int value;
 
         try {
-            value = Integer.parseInt(property);
+            value = Integer.parseInt(properties.getProperty(property));
         } catch (NumberFormatException e) {
             value = 0;
         }

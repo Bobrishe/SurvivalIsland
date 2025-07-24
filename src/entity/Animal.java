@@ -1,5 +1,6 @@
 package entity;
 
+import exception.AnimalWasntBornException;
 import map.Island;
 import map.Location;
 import types.AnimalClass;
@@ -56,7 +57,7 @@ public abstract class Animal {
                     justBorn.setLocation(location);
                     location.addAnimal(justBorn);
                 } catch (Exception e) {
-                    //animal wasn't born;
+                    throw new AnimalWasntBornException();
                 }
             }
         });
