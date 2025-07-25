@@ -13,7 +13,7 @@ public class PropertyStore {
 
     private static Map<String, PropertyStore> instance = new HashMap<>();
     private final Properties properties = new Properties();
-    private final String BASE_PATH = "src/resources/property";
+    private static final String BASE_PATH = "src/resources/property";
 
     private PropertyStore(String propertyFile) {
 

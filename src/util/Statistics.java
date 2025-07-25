@@ -34,7 +34,7 @@ public class Statistics {
         System.out.println("Predators amount - " + totalPredators);
         System.out.println("Herbivores amount - " + totalHerbivore);
         for (String animalName : animalCounts.keySet()) {
-            System.out.printf("%s %s population - %s\n", icons.get(animalName), animalName, animalCounts.get(animalName));
+            System.out.printf("%s %s population - %s%n", icons.get(animalName), animalName, animalCounts.get(animalName));
         }
         System.out.println();
     }

@@ -1,7 +1,6 @@
 package engine;
 
 import entity.Animal;
-import exception.EngineThreadException;
 import map.Island;
 import map.Location;
 import util.AnimalUtil;
@@ -12,8 +11,8 @@ import java.util.concurrent.*;
 
 public class IslandEngine {
     private final Island island;
-    private final int ANIMAL_IN_START = 20;
-    private final int DELAY = 1;
+    private static final int ANIMAL_IN_START = 20;
+    private static final int DELAY = 1;
     ScheduledExecutorService executorService = Executors.newScheduledThreadPool(1);
 
     public IslandEngine(Island island) {
@@ -58,6 +57,7 @@ public class IslandEngine {
                     Thread.sleep(100);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
+                    Thread.currentThread().interrupt();
                 }
             }
 

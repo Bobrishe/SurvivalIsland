@@ -11,11 +11,11 @@ public class AnimalProperties {
     private static Map<String, AnimalProperties> instance = new HashMap<>();
     private final PropertyStore store;
 
-    private final String WEIGHT = "weight";
-    private final String MAX_COUNT = "maxCount";
-    private final String FOOD_NEED = "foodNeed";
-    private final String ICON = "icon";
-    private final String SPEED = "speed";
+    private static final String WEIGHT = "weight";
+    private static final String MAX_COUNT = "maxCount";
+    private static final String FOOD_NEED = "foodNeed";
+    private static final String ICON = "icon";
+    private static final String SPEED = "speed";
 
 
     private AnimalProperties(Animal animal) {

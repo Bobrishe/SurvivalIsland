@@ -47,7 +47,7 @@ public class Location {
                 .collect(Collectors.groupingBy(Animal::getClass));
     }
 
-    public synchronized List<Animal> getAnimals(Class clazz) {
+    public synchronized List<Animal> getAnimals(Class<? extends Animal> clazz) {
         List<Animal> sameAnimals = new ArrayList<>();
         for (Animal animal : getAnimals()) {
             if (animal.getClass().equals(clazz))

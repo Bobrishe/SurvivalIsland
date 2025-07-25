@@ -19,8 +19,8 @@ public abstract class Animal {
     protected final String icon;
     protected Location location;
     protected String name;
-    protected final int REPRODUCE_PROBABILITY = 5;
-    protected final int MOVE_TRIES = 5;
+    protected static final int REPRODUCE_PROBABILITY = 5;
+    protected static final int MOVE_TRIES = 5;
     protected final AnimalProperties animalProperties;
 
     protected Animal() {
