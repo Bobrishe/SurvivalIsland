@@ -6,7 +6,7 @@ import types.AnimalClass;
 
 public abstract class Herbivore extends Animal {
 
-    public Herbivore() {
+    protected Herbivore() {
         super();
     }
 

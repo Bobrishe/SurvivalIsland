@@ -1,7 +1,6 @@
 package entity;
 
 import exception.AnimalWasntBornException;
-import exception.PropertyException;
 import map.Island;
 import map.Location;
 import types.AnimalClass;
@@ -24,18 +23,15 @@ public abstract class Animal {
     protected final int MOVE_TRIES = 5;
     protected final AnimalProperties animalProperties;
 
-    public Animal() {
+    protected Animal() {
         this.name = this.getClass().getSimpleName().toLowerCase();
         animalProperties = AnimalProperties.getInstance(this);
-        if (animalProperties.hasProperties()) {
-            this.weight = animalProperties.getWeight();
-            this.maxCount = animalProperties.getMaxCount();
-            this.speed = animalProperties.getSpeed();
-            this.foodNeeded = animalProperties.getFoodNeeded();
-            this.icon = animalProperties.getIcon();
-        } else {
-            throw new PropertyException();
-        }
+
+        this.weight = animalProperties.getWeight();
+        this.maxCount = animalProperties.getMaxCount();
+        this.speed = animalProperties.getSpeed();
+        this.foodNeeded = animalProperties.getFoodNeeded();
+        this.icon = animalProperties.getIcon();
 
     }
 

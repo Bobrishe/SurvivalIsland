@@ -2,12 +2,13 @@ package entity;
 
 import map.Location;
 import types.AnimalClass;
+
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public abstract class Predator extends Animal {
 
-    public Predator() {
+    protected Predator() {
         super();
     }
 
@@ -32,14 +33,13 @@ public abstract class Predator extends Animal {
         if (!animals.isEmpty()) {
             for (Animal food : animals) {
                 int randomProbability = ThreadLocalRandom.current().nextInt(100);
-                int probabilityToEat = animalProperties.getEatProbability(this, food);
+                int probabilityToEat = animalProperties.getEatProbability(food);
 
-                if (probabilityToEat > 0) {
-                    if (eaten <= getFoodNeeded() - food.getWeight() && randomProbability <= probabilityToEat) {
-                        eaten += food.getWeight();
-                        current.removeAnimal(food);
-                    }
+                if (probabilityToEat > 0 && eaten <= getFoodNeeded() - food.getWeight() && randomProbability <= probabilityToEat) {
+                    eaten += food.getWeight();
+                    current.removeAnimal(food);
                 }
+
             }
         }
     }

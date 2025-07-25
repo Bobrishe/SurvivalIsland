@@ -8,75 +8,61 @@ import java.util.*;
 
 public class AnimalProperties {
 
-    private static volatile Map<String, AnimalProperties> instance = new HashMap<>();
-    private List<String> propertyList;
-    protected static BaseProperties baseProperties = BaseProperties.getInstance();
+    private static Map<String, AnimalProperties> instance = new HashMap<>();
+    private final PropertyStore store;
+
+    private final String WEIGHT = "weight";
+    private final String MAX_COUNT = "maxCount";
+    private final String FOOD_NEED = "foodNeed";
+    private final String ICON = "icon";
+    private final String SPEED = "speed";
+
 
     private AnimalProperties(Animal animal) {
 
-        if (baseProperties.getProperties().isEmpty() || animal == null) {
-            throw new PropertyFileException();
+        store = PropertyStore.getInstance(animal.getName());
+
+        if (store == null || store.getProperties().isEmpty()) {
+            throw new PropertyFileException(animal.getName());
         }
 
-        String animalName = animal.getName();
-        String property = baseProperties.getProperties().getProperty(animalName);
-        if (property == null) {
-            throw new PropertyException();
-        }
-        String[] props = property.split(",");
-
-        propertyList = Arrays.stream(props)
-                .map(String::trim)
-                .filter(s -> !s.isEmpty())
-                .toList();
-
-        if (propertyList.size() != 5) {
-            throw new PropertyException();
-        }
     }
 
     public static AnimalProperties getInstance(Animal animal) {
-        if (instance.get(animal.getName()) == null) {
+        String name = animal.getName();
+
+        if (instance.get(name) == null) {
             synchronized (AnimalProperties.class) {
-                if (instance.get(animal.getName()) == null) {
-                    instance.put(animal.getName(), new AnimalProperties(animal));
+                if (instance.get(name) == null) {
+                    instance.put(name, new AnimalProperties(animal));
                 }
             }
         }
-        return instance.get(animal.getName());
+        return instance.get(name);
     }
 
-    public int getEatProbability(Animal predator, Animal food) {
-        String predatorName = predator.getName();
-        String foodName = food.getName();
-        String property = predatorName + '.' + foodName;
-
-        return baseProperties.getIntProperty(property);
+    public int getEatProbability(Animal food) {
+        return store.getInt(food.getName());
     }
 
     public double getWeight() throws PropertyException {
-        return Double.parseDouble(propertyList.get(0));
+        return store.getDouble(WEIGHT);
     }
 
     public int getMaxCount() throws PropertyException {
-        return Integer.parseInt(propertyList.get(1));
+        return store.getInt(MAX_COUNT);
     }
 
     public int getSpeed() throws PropertyException {
-        return Integer.parseInt(propertyList.get(2));
+        return store.getInt(SPEED);
     }
 
     public double getFoodNeeded() throws PropertyException {
-        return Double.parseDouble(propertyList.get(3));
+        return store.getDouble(FOOD_NEED);
     }
 
     public String getIcon() {
-        return propertyList.get(4);
-    }
-
-
-    public synchronized boolean hasProperties() {
-        return !propertyList.isEmpty();
+        return store.getProperty(ICON);
     }
 
 }
