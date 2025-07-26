@@ -1,6 +1,6 @@
 package entity;
 
-import exception.AnimalWasntBornException;
+import exception.*;
 import map.Island;
 import map.Location;
 import types.AnimalClass;
@@ -38,7 +38,7 @@ public abstract class Animal {
     public void move(Island island) {
         Location current = location;
 
-        IntStream.range(0, MOVE_TRIES).anyMatch(i -> {
+        boolean canMove = IntStream.range(0, MOVE_TRIES).anyMatch(i -> {
             Location newLocation = island.getRandomLocation(current, speed);
 
             if (newLocation != null && newLocation.getAnimals(getClass()).size() < maxCount) {
@@ -50,6 +50,10 @@ public abstract class Animal {
 
             return false;
         });
+
+        if (!canMove) {
+            throw new AnimalMoveException(this.getName());
+        }
     }
 
     public void reproduce() {

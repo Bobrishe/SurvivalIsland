@@ -34,14 +34,11 @@ public abstract class Herbivore extends Animal {
             });
         }
 
-        current.getPlants().stream().anyMatch(plant -> {
+        current.getPlants().stream().forEach(plant -> {
             if (eaten[0] <= getFoodNeeded() - Plant.WEIGHT) {
                 eaten[0] += Plant.WEIGHT;
                 current.removePlant(plant);
-                return false;
             }
-
-            return true;
         });
     }
 }
